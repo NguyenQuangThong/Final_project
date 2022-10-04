@@ -5,6 +5,46 @@ import java.sql.Timestamp;
 
 @Entity
 public class ChildPost {
+    public Long getChildPostId() {
+        return childPostId;
+    }
+
+    public void setChildPostId(Long childPostId) {
+        this.childPostId = childPostId;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public Timestamp getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(Timestamp timestamp) {
+        this.timestamp = timestamp;
+    }
+
+    public Post getPost() {
+        return post;
+    }
+
+    public void setPost(Post post) {
+        this.post = post;
+    }
+
+    public Account getAccount() {
+        return account;
+    }
+
+    public void setAccount(Account account) {
+        this.account = account;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long childPostId;
