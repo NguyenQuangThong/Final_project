@@ -6,6 +6,46 @@ import java.util.List;
 
 @Entity
 public class Post {
+    public Long getPostId() {
+        return postId;
+    }
+
+    public void setPostId(Long postId) {
+        this.postId = postId;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public Timestamp getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(Timestamp timestamp) {
+        this.timestamp = timestamp;
+    }
+
+    public Account getAccount() {
+        return account;
+    }
+
+    public void setAccount(Account account) {
+        this.account = account;
+    }
+
+    public List<ChildPost> getChildPosts() {
+        return childPosts;
+    }
+
+    public void setChildPosts(List<ChildPost> childPosts) {
+        this.childPosts = childPosts;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long postId;
