@@ -1,7 +1,7 @@
 package com.example.final_project.controllers;
 
+import com.example.final_project.dtos.requests.ClassMemberRequest;
 import com.example.final_project.dtos.requests.ClassroomRequest;
-import com.example.final_project.dtos.requests.Test;
 import com.example.final_project.dtos.responses.ClassroomResponse;
 import com.example.final_project.dtos.responses.MessageResponse;
 import com.example.final_project.services.implement.ClassroomService;
@@ -49,14 +49,14 @@ public class ClassroomController {
     }
 
     @PostMapping("/{id}")
-    public ResponseEntity<MessageResponse> addClassroomMember(@PathVariable Long id, @RequestBody Test test) {
-        classroomService.addClassroomMember(id, test.getAccountId());
+    public ResponseEntity<MessageResponse> addClassroomMember(@PathVariable Long id, @RequestBody ClassMemberRequest classMemberRequest) {
+        classroomService.addClassroomMember(id, classMemberRequest.getAccountId());
         return new ResponseEntity<>(new MessageResponse("ok", HttpStatus.OK.value()), HttpStatus.OK);
     }
 
     @DeleteMapping("/remove/{id}")
-    public ResponseEntity<MessageResponse> removeClassroomMember(@PathVariable Long id, @RequestBody Test test) {
-        classroomService.removeClassroomMember(id, test.getAccountId());
+    public ResponseEntity<MessageResponse> removeClassroomMember(@PathVariable Long id, @RequestBody ClassMemberRequest classMemberRequest) {
+        classroomService.removeClassroomMember(id, classMemberRequest.getAccountId());
         return new ResponseEntity<>(new MessageResponse("OK", HttpStatus.OK.value()), HttpStatus.OK);
     }
 }
