@@ -37,7 +37,7 @@ public class LoginController {
         try {
             authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
         } catch (Exception e) {
-            return new ResponseEntity<>(new MessageResponse(e.getMessage(), HttpStatus.NOT_FOUND), HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(new MessageResponse(e.getMessage(), HttpStatus.NOT_FOUND.value()), HttpStatus.NOT_FOUND);
         }
         LoginResponse result = accountService.login(loginRequest, authentication);
         return new ResponseEntity<>(result, HttpStatus.OK);
@@ -46,8 +46,8 @@ public class LoginController {
     @PostMapping("/signup")
     public ResponseEntity<Object> signUp(@RequestBody RegisterRequest registerRequest) {
         if (accountService.createAccount(registerRequest))
-            return new ResponseEntity<>(new MessageResponse("Sign up successfully", HttpStatus.OK), HttpStatus.OK);
+            return new ResponseEntity<>(new MessageResponse("Sign up successfully", HttpStatus.OK.value()), HttpStatus.OK);
         else
-            return new ResponseEntity<>(new MessageResponse("Username already taken", HttpStatus.BAD_REQUEST), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(new MessageResponse("Username already taken", HttpStatus.BAD_REQUEST.value()), HttpStatus.BAD_REQUEST);
     }
 }

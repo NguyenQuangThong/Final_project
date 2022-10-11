@@ -1,6 +1,7 @@
 package com.example.final_project.services.implement;
 
 import com.example.final_project.configures.JwtTokenUtils;
+import com.example.final_project.dtos.requests.AccountUpdate;
 import com.example.final_project.dtos.requests.LoginRequest;
 import com.example.final_project.dtos.requests.RegisterRequest;
 import com.example.final_project.dtos.responses.AccountResponse;
@@ -70,8 +71,47 @@ public class AccountService implements IAccountService {
     }
 
     @Override
-    public List<Account> getAllAccounts() {
-        return accountRepository.findAll();
+    public List<AccountResponse> getAllAccounts() {
+        List<AccountResponse> result = new ArrayList<>();
+        try {
+            List<Account> accounts = accountRepository.findAll();
+            for (Account account : accounts)
+                result.add(jwtTokenUtils.modelMapper().map(account, AccountResponse.class));
+            return result;
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    @Override
+    public AccountResponse getAccountById(Long id) {
+        try {
+            return jwtTokenUtils.modelMapper().map(accountRepository.findById(id).get(), AccountResponse.class);
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    @Override
+    public boolean updateAccount(Long id, AccountUpdate accountUpdate) {
+        try {
+            Account account = accountRepository.findById(id).get();
+            account.setFullName(accountUpdate.getFullName());
+            accountRepository.save(account);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    @Override
+    public boolean deleteAccount(Long id) {
+        try {
+            accountRepository.deleteById(id);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
     }
 
     @Override

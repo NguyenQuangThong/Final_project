@@ -16,7 +16,7 @@ import java.util.function.Function;
 
 @Component
 public class JwtTokenUtils {
-    public static final Long ACCESS_TOKEN_VALIDITY_SECONDS = 15 * 60 * 1000L;
+    public static final Long ACCESS_TOKEN_VALIDITY_SECONDS = 15 * 60 * 10000L;
 
     public String getUsernameFromToken(String token, PublicKey publicKey) {
         return getClaimFromToken(token, Claims::getSubject, publicKey);
