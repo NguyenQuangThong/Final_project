@@ -48,7 +48,7 @@ public class FileService implements IFileService {
             os.write(file.getBytes());
         }
         File uploadedFile = new File();
-        uploadedFile.setFilePath(filePath.resolve(file.getOriginalFilename()).toString());
+        uploadedFile.setFilePath("static/" + filePath.resolve(file.getOriginalFilename()));
         uploadedFile.setTimestamp(new Timestamp(new Date().getTime()));
         uploadedFile.setClassroom(classroomRepository.findById(classroomId).get());
         uploadedFile.setAccount(accountRepository.findById(accountId).get());
@@ -62,5 +62,13 @@ public class FileService implements IFileService {
         for (File file : files)
             result.add(jwtTokenUtils.modelMapper().map(file, FileResponse.class));
         return result;
+    }
+
+    @Override
+    public void deleteFile(Long id) {
+        String fileName = fileRepository.findById(id).get().getFilePath();
+        fileRepository.deleteById(id);
+        java.io.File fileToDelete = new java.io.File(fileName);
+        fileToDelete.delete();
     }
 }

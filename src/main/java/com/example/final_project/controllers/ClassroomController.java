@@ -37,7 +37,7 @@ public class ClassroomController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<MessageResponse> updateClassroom(@PathVariable Long id, ClassroomRequest classroomRequest) {
+    public ResponseEntity<MessageResponse> updateClassroom(@PathVariable Long id, @RequestBody ClassroomRequest classroomRequest) {
         Boolean check = classroomService.updateClassroom(id, classroomRequest);
         return check ? new ResponseEntity<>(new MessageResponse("Update classroom successfully", HttpStatus.OK.value()), HttpStatus.OK) : new ResponseEntity<>(new MessageResponse("Update classroom failed", HttpStatus.BAD_REQUEST.value()), HttpStatus.BAD_REQUEST);
     }

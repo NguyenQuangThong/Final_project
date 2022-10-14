@@ -10,4 +10,6 @@ public interface IFileService {
     void uploadFile(Long accountId, Long classroomId, MultipartFile file) throws IOException;
 
     List<FileResponse> getAllFiles();
+
+    void deleteFile(Long id);
 }
