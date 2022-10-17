@@ -1,6 +1,7 @@
 package com.example.final_project.controllers;
 
 import com.example.final_project.dtos.responses.FileResponse;
+import com.example.final_project.dtos.responses.MessageResponse;
 import com.example.final_project.services.implement.FileService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -28,5 +29,11 @@ public class FileController {
     @GetMapping("")
     public ResponseEntity<List<FileResponse>> getFile() {
         return new ResponseEntity<>(fileService.getAllFiles(), HttpStatus.OK);
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<MessageResponse> deleteFile(@PathVariable Long id) {
+        fileService.deleteFile(id);
+        return new ResponseEntity<>(new MessageResponse("Delete complete", HttpStatus.OK.value()), HttpStatus.OK);
     }
 }
