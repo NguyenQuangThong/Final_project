@@ -1,1 +1,1 @@
-web: java server-start
+web: java FinalProjectApplication
