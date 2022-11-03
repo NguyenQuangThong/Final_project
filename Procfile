@@ -1,1 +1,1 @@
-web: java FinalProjectApplication
+web: java FinalProjectApplication.java
