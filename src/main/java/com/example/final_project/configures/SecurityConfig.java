@@ -25,8 +25,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     JwtTokenFilter jwtTokenFilter;
     @Autowired
     UserDetailsService userDetailsService;
-    @Autowired
-    BCryptPasswordEncoder bCryptPasswordEncoder;
+
+    BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
