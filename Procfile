@@ -1,1 +1,1 @@
-web: server start
+web: java server-start
