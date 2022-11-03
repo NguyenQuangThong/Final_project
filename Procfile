@@ -1,1 +1,1 @@
-web: java $JAVA_OPTS -Dserver.port=8080 -Dspring.profiles.active=default -jar target/Capstone-0.0.1-SNAPSHOT.jar
+web: java -jar target/java-getting-started-1.0.jar
