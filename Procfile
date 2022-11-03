@@ -1,1 +1,1 @@
-web: java -cp target/classes/:target/dependency/* com.example.final_project.FinalProjectApplication
+web: java $JAVA_OPTS -Dserver.port=8080 -Dspring.profiles.active=default -jar target/Capstone-0.0.1-SNAPSHOT.jar
