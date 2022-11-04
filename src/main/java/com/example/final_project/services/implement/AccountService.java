@@ -38,8 +38,7 @@ public class AccountService implements IAccountService {
     AccountRepository accountRepository;
     @Autowired
     RoleRepository roleRepository;
-    @Autowired
-    BCryptPasswordEncoder bCryptPasswordEncoder;
+    BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
     @Autowired
     KeyRepository keyRepository;
     @Autowired

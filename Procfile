@@ -1,1 +1,1 @@
-web: server start
+web: java $JAVA_OPTS -cp target/classes:target/dependency/* com.example.final_project.FinalProjectApplication
