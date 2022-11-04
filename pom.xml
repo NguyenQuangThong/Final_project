@@ -14,7 +14,7 @@
     <name>Final_project</name>
     <description>Final_project</description>
     <properties>
-        <java.version>16.0.2</java.version>
+        <java.version>11</java.version>
     </properties>
     <dependencies>
         <dependency>
