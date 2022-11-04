@@ -38,8 +38,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authenticationEntryPoint((request1, response1, authException)
                         -> response1.sendError(HttpServletResponse.SC_UNAUTHORIZED, authException.getMessage()))
                 .and().authorizeRequests() // Our public endpoints
-                .antMatchers("/login", "/signup", "/files/**").permitAll()
-                .antMatchers("/accounts/**", "/classrooms/**").hasAuthority("Admin")
+                .antMatchers("/login", "/signup", "/accounts/**").permitAll()
+//                .antMatchers("/accounts/**", "/classrooms/**").hasAuthority("Admin")
                 .anyRequest().authenticated()
                 .and().addFilterBefore(jwtTokenFilter, UsernamePasswordAuthenticationFilter.class);
     }
