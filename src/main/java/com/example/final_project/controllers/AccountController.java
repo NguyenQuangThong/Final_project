@@ -10,7 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-@CrossOrigin(origins = "http://localhost:8080")
+@CrossOrigin(origins = "https://final-project1206.herokuapp.com")
 @RestController
 @RequestMapping("/accounts")
 public class AccountController {
