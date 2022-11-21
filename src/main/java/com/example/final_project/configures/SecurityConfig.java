@@ -40,7 +40,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         -> response1.sendError(HttpServletResponse.SC_UNAUTHORIZED, authException.getMessage()))
                 .and().authorizeRequests() // Our public endpoints
 //                .antMatchers("/login", "/signup", "/accounts/**", "/files/**").permitAll()
-////                .antMatchers("/accounts/**", "/classrooms/**").hasAuthority("Admin")
+//                .antMatchers("/accounts/**", "/classrooms/**").hasAuthority("Admin")
 //                .anyRequest().authenticated()
                 .anyRequest().permitAll()
                 .and().addFilterBefore(jwtTokenFilter, UsernamePasswordAuthenticationFilter.class);
