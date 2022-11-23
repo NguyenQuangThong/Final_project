@@ -95,7 +95,7 @@ public class AccountService implements IAccountService {
             account.setUsername(registerRequest.getUsername());
             account.setPassword(bCryptPasswordEncoder.encode(registerRequest.getPassword()));
             account.setFullName(registerRequest.getFullName());
-            account.setAvatar("static/avatars/default_avatar.png");
+            account.setAvatar("/avatars/default_avatar.png");
             account.setRole(roleRepository.findById(1L).orElseThrow());
             accountRepository.save(account);
             return true;
