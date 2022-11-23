@@ -74,7 +74,7 @@ public class AccountService implements IAccountService {
         try (OutputStream os = Files.newOutputStream(path)) {
             os.write(file.getBytes());
         }
-        return "static/" + filePath.resolve(renameFile);
+        return "" + filePath.resolve(renameFile);
     }
 
     @Override
