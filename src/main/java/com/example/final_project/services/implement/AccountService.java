@@ -1,7 +1,6 @@
 package com.example.final_project.services.implement;
 
 import com.example.final_project.configures.JwtTokenUtils;
-import com.example.final_project.dtos.requests.AccountUpdate;
 import com.example.final_project.dtos.requests.LoginRequest;
 import com.example.final_project.dtos.requests.RegisterRequest;
 import com.example.final_project.dtos.responses.AccountResponse;
@@ -22,7 +21,13 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.io.OutputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.security.KeyFactory;
 import java.security.NoSuchAlgorithmException;
 import java.security.PrivateKey;
@@ -44,6 +49,34 @@ public class AccountService implements IAccountService {
     @Autowired
     JwtTokenUtils jwtTokenUtils;
 
+    public String avatarHandler(MultipartFile file, String oldAvatar, Long id) throws IOException {
+        Path CURRENT_FOLDER = Paths.get(System.getProperty("user.dir"));
+        Path staticPath = Paths.get("static");
+        Path filePath = Paths.get("avatars");
+        if (!Files.exists(CURRENT_FOLDER.resolve(staticPath).resolve(filePath))) {
+            Files.createDirectories(CURRENT_FOLDER.resolve(staticPath).resolve(filePath));
+        }
+        String fileName = file.getOriginalFilename().replaceFirst(".", "");
+        String extension = "";
+        int index = fileName.lastIndexOf('.');
+        if (index > 0) {
+            extension = fileName.substring(index + 1);
+        }
+        System.out.println(oldAvatar);
+//        if (!oldAvatar.equals("static/avatars/default_avatar.png")) {
+//            File f = new File(oldAvatar);
+//            f.delete();
+//        }
+        System.out.println(!oldAvatar.equals("static/avatars/default_avatar.png"));
+        String renameFile = id.toString() + "." + extension;
+        Path path = CURRENT_FOLDER.resolve(staticPath)
+                .resolve(filePath).resolve(renameFile);
+        try (OutputStream os = Files.newOutputStream(path)) {
+            os.write(file.getBytes());
+        }
+        return "static/" + filePath.resolve(renameFile);
+    }
+
     @Override
     public LoginResponse login(LoginRequest loginRequest, Authentication authentication) throws NoSuchAlgorithmException, InvalidKeySpecException {
         User user = (User) authentication.getPrincipal();
@@ -62,6 +95,7 @@ public class AccountService implements IAccountService {
             account.setUsername(registerRequest.getUsername());
             account.setPassword(bCryptPasswordEncoder.encode(registerRequest.getPassword()));
             account.setFullName(registerRequest.getFullName());
+            account.setAvatar("static/avatars/default_avatar.png");
             account.setRole(roleRepository.findById(1L).orElseThrow());
             accountRepository.save(account);
             return true;
@@ -92,10 +126,13 @@ public class AccountService implements IAccountService {
     }
 
     @Override
-    public boolean updateAccount(Long id, AccountUpdate accountUpdate) {
+    public boolean updateAccount(Long id, String fullName, MultipartFile avatar) {
         try {
             Account account = accountRepository.findById(id).get();
-            account.setFullName(accountUpdate.getFullName());
+            account.setFullName(fullName);
+            String oldAvatar = account.getAvatar();
+            if (!avatar.isEmpty())
+                account.setAvatar(avatarHandler(avatar, oldAvatar, account.getAccountId()));
             accountRepository.save(account);
             return true;
         } catch (Exception e) {

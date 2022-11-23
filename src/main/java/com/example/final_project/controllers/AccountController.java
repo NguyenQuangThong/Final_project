@@ -1,6 +1,5 @@
 package com.example.final_project.controllers;
 
-import com.example.final_project.dtos.requests.AccountUpdate;
 import com.example.final_project.dtos.responses.AccountResponse;
 import com.example.final_project.dtos.responses.MessageResponse;
 import com.example.final_project.services.implement.AccountService;
@@ -8,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -29,8 +29,8 @@ public class AccountController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<MessageResponse> updateAccount(@PathVariable Long id, @RequestBody AccountUpdate accountUpdate) {
-        if (accountService.updateAccount(id, accountUpdate))
+    public ResponseEntity<MessageResponse> updateAccount(@PathVariable Long id, @RequestParam String fullName, @RequestParam MultipartFile avatar) {
+        if (accountService.updateAccount(id, fullName, avatar))
             return new ResponseEntity<>(new MessageResponse("Account updated successfully!", HttpStatus.OK.value()), HttpStatus.OK);
         return new ResponseEntity<>(new MessageResponse("Account update error!", HttpStatus.BAD_REQUEST.value()), HttpStatus.BAD_REQUEST);
     }

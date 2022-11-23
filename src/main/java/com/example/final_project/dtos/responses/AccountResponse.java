@@ -9,7 +9,7 @@ public class AccountResponse {
     Long accountId;
     String username;
     String fullName;
-    //avatar
+    String avatar;
     String role;
     List<ClassroomResponse> memberOf;
 }
