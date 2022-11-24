@@ -131,7 +131,7 @@ public class AccountService implements IAccountService {
             Account account = accountRepository.findById(id).get();
             account.setFullName(fullName);
             String oldAvatar = account.getAvatar();
-            if (!avatar.isEmpty())
+            if (avatar != null)
                 account.setAvatar(avatarHandler(avatar, oldAvatar, account.getAccountId()));
             accountRepository.save(account);
             return true;
