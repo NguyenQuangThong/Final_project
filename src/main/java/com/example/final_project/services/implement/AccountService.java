@@ -142,10 +142,10 @@ public class AccountService implements IAccountService {
     }
 
     @Override
-    public boolean updateAccountPassword(Long id, PasswordRequest passwordRequest){
+    public boolean updateAccountPassword(Long id, PasswordRequest passwordRequest) {
         try {
             Account account = accountRepository.findById(id).get();
-            if(bCryptPasswordEncoder.encode(passwordRequest.getOldPassword()).equals(account.getPassword())) {
+            if (bCryptPasswordEncoder.matches(passwordRequest.getOldPassword(), account.getPassword())) {
                 account.setPassword(bCryptPasswordEncoder.encode(passwordRequest.getNewPassword()));
                 return true;
             }
