@@ -29,7 +29,7 @@ public class AccountController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<MessageResponse> updateAccount(@PathVariable Long id, @RequestParam String fullName, @RequestParam MultipartFile avatar) {
+    public ResponseEntity<MessageResponse> updateAccount(@PathVariable Long id, @RequestParam String fullName, @RequestParam(required = false) MultipartFile avatar) {
         if (accountService.updateAccount(id, fullName, avatar))
             return new ResponseEntity<>(new MessageResponse("Account updated successfully!", HttpStatus.OK.value()), HttpStatus.OK);
         return new ResponseEntity<>(new MessageResponse("Account update error!", HttpStatus.BAD_REQUEST.value()), HttpStatus.BAD_REQUEST);
