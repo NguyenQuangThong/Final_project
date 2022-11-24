@@ -2,6 +2,7 @@ package com.example.final_project.services.implement;
 
 import com.example.final_project.configures.JwtTokenUtils;
 import com.example.final_project.dtos.requests.LoginRequest;
+import com.example.final_project.dtos.requests.PasswordRequest;
 import com.example.final_project.dtos.requests.RegisterRequest;
 import com.example.final_project.dtos.responses.AccountResponse;
 import com.example.final_project.dtos.responses.LoginResponse;
@@ -135,6 +136,20 @@ public class AccountService implements IAccountService {
                 account.setAvatar(avatarHandler(avatar, oldAvatar, account.getAccountId()));
             accountRepository.save(account);
             return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    @Override
+    public boolean updateAccountPassword(Long id, PasswordRequest passwordRequest){
+        try {
+            Account account = accountRepository.findById(id).get();
+            if(bCryptPasswordEncoder.encode(passwordRequest.getOldPassword()).equals(account.getPassword())) {
+                account.setPassword(bCryptPasswordEncoder.encode(passwordRequest.getNewPassword()));
+                return true;
+            }
+            return false;
         } catch (Exception e) {
             return false;
         }

@@ -1,5 +1,6 @@
 package com.example.final_project.controllers;
 
+import com.example.final_project.dtos.requests.PasswordRequest;
 import com.example.final_project.dtos.responses.AccountResponse;
 import com.example.final_project.dtos.responses.MessageResponse;
 import com.example.final_project.services.implement.AccountService;
@@ -32,6 +33,13 @@ public class AccountController {
     public ResponseEntity<MessageResponse> updateAccount(@PathVariable Long id, @RequestParam String fullName, @RequestParam(required = false) MultipartFile avatar) {
         if (accountService.updateAccount(id, fullName, avatar))
             return new ResponseEntity<>(new MessageResponse("Account updated successfully!", HttpStatus.OK.value()), HttpStatus.OK);
+        return new ResponseEntity<>(new MessageResponse("Account update error!", HttpStatus.BAD_REQUEST.value()), HttpStatus.BAD_REQUEST);
+    }
+
+    @PutMapping("/password/{id}")
+    public ResponseEntity<MessageResponse> updateAccountPassword(@PathVariable Long id, @RequestBody PasswordRequest passwordRequest) {
+        if (accountService.updateAccountPassword(id, passwordRequest))
+            return new ResponseEntity<>(new MessageResponse("Password updated successfully!", HttpStatus.OK.value()), HttpStatus.OK);
         return new ResponseEntity<>(new MessageResponse("Account update error!", HttpStatus.BAD_REQUEST.value()), HttpStatus.BAD_REQUEST);
     }
 
