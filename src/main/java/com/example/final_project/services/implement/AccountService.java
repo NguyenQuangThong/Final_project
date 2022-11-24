@@ -147,6 +147,7 @@ public class AccountService implements IAccountService {
             Account account = accountRepository.findById(id).get();
             if (bCryptPasswordEncoder.matches(passwordRequest.getOldPassword(), account.getPassword())) {
                 account.setPassword(bCryptPasswordEncoder.encode(passwordRequest.getNewPassword()));
+                accountRepository.save(account);
                 return true;
             }
             return false;
