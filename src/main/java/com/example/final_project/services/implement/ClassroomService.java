@@ -31,7 +31,7 @@ public class ClassroomService implements IClassroomService {
         Classroom classroom = new Classroom();
         classroom.setClassName(classroomRequest.getClassName());
         classroom.setRoomOwner(accountRepository.findByUsername(auth.getName()));
-        classroom.setRoomMembers(Collections.singletonList(accountRepository.findByUsername(auth.getName())));
+//        classroom.setRoomMembers(Collections.singletonList(accountRepository.findByUsername(auth.getName())));
         classroomRepository.save(classroom);
         return true;
     }

@@ -2,8 +2,6 @@ package com.example.final_project.dtos.responses;
 
 import lombok.Data;
 
-import java.util.List;
-
 @Data
 public class AccountResponse {
     Long accountId;
@@ -11,5 +9,5 @@ public class AccountResponse {
     String fullName;
     String avatar;
     String role;
-    List<ClassroomResponse> memberOf;
+//    List<ClassroomResponse> memberOf;
 }
