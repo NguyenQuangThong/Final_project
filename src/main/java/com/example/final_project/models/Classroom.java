@@ -21,6 +21,10 @@ public class Classroom {
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinColumn(name = "account_id", nullable = false)
     List<Account> roomMembers;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "classroom", cascade = CascadeType.ALL)
+    List<Post> posts;
+
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "classroom", cascade = CascadeType.ALL)
     List<Message> messages;
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "classroom", cascade = CascadeType.ALL)
