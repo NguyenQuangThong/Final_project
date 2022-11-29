@@ -6,4 +6,5 @@ import lombok.Data;
 public class PostRequest {
     String content;
     Long accountId;
+    Long classroomId;
 }

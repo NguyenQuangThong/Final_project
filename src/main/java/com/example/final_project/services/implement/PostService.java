@@ -5,6 +5,7 @@ import com.example.final_project.dtos.requests.PostRequest;
 import com.example.final_project.dtos.responses.PostResponse;
 import com.example.final_project.models.Post;
 import com.example.final_project.repositories.AccountRepository;
+import com.example.final_project.repositories.ClassroomRepository;
 import com.example.final_project.repositories.PostRepository;
 import com.example.final_project.services.IPostService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,8 @@ public class PostService implements IPostService {
     @Autowired
     AccountRepository accountRepository;
     @Autowired
+    ClassroomRepository classroomRepository;
+    @Autowired
     JwtTokenUtils jwtTokenUtils;
 
     @Override
@@ -37,6 +40,7 @@ public class PostService implements IPostService {
     public void createPost(PostRequest postRequest) {
         Post post = new Post();
         post.setAccount(accountRepository.findById(postRequest.getAccountId()).get());
+        post.setClassroom(classroomRepository.findById(postRequest.getClassroomId()).get());
         post.setContent(postRequest.getContent());
         post.setTimestamp(new Timestamp(new Date().getTime()));
         postRepository.save(post);
