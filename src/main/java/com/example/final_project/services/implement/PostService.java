@@ -52,6 +52,15 @@ public class PostService implements IPostService {
     }
 
     @Override
+    public List<PostResponse> getPostByClassroomId(Long id) {
+        List<Post> posts = postRepository.findByClassroom_ClassroomId(id);
+        List<PostResponse> result = new ArrayList<>();
+        for (Post post : posts)
+            result.add(jwtTokenUtils.modelMapper().map(post, PostResponse.class));
+        return result;
+    }
+
+    @Override
     public void editPost(Long id, PostRequest postRequest) {
         Post post = postRepository.findById(id).get();
         post.setContent(postRequest.getContent());

@@ -12,6 +12,8 @@ public interface IPostService {
 
     PostResponse getPostById(Long id);
 
+    List<PostResponse> getPostByClassroomId(Long classroomId);
+
     void editPost(Long id, PostRequest postRequest);
 
     void deletePost(Long id);
