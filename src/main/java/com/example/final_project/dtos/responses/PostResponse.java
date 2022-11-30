@@ -8,7 +8,7 @@ import java.util.List;
 @Data
 public class PostResponse {
     Long postId;
-    AccountResponse accountId;
+    AccountResponse account;
     Long classroomId;
     String content;
     Timestamp timestamp;

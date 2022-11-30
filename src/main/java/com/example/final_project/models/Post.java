@@ -16,7 +16,7 @@ public class Post {
     String content;
     @Column(name = "created_at", columnDefinition = "timestamp")
     Timestamp timestamp;
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "account_id", nullable = false)
     Account account;
 
