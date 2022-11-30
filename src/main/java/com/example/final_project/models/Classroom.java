@@ -13,7 +13,7 @@ public class Classroom {
     Long classroomId;
     @Column(name = "class_name", nullable = false, columnDefinition = "varchar(50)")
     String className;
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "account_id", nullable = false)
     Account roomOwner;
     //    @OneToMany(fetch = FetchType.LAZY, mappedBy = "classroom", cascade = CascadeType.ALL)
