@@ -9,7 +9,7 @@ import java.util.List;
 public class PostResponse {
     Long postId;
     Long accountId;
-    Long classroomId;
+    ClassroomResponse classroomId;
     String content;
     Timestamp timestamp;
     List<ChildPostResponse> childPosts;
