@@ -26,7 +26,7 @@ public class Account {
     List<Classroom> ownerOf;
     @ManyToMany(fetch = FetchType.LAZY, mappedBy = "roomMembers", cascade = CascadeType.ALL)
     List<Classroom> memberOf;
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "account", cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "account", cascade = CascadeType.ALL)
     List<Post> posts;
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "account", cascade = CascadeType.ALL)
     List<ChildPost> childPosts;
