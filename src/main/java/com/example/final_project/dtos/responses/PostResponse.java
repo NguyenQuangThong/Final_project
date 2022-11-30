@@ -8,8 +8,8 @@ import java.util.List;
 @Data
 public class PostResponse {
     Long postId;
-    Long accountId;
-    ClassroomResponse classroomId;
+    AccountResponse accountId;
+    Long classroomId;
     String content;
     Timestamp timestamp;
     List<ChildPostResponse> childPosts;
