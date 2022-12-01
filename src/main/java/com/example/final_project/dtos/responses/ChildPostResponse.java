@@ -10,5 +10,5 @@ public class ChildPostResponse {
     String content;
     Timestamp timestamp;
     Long postId;
-    Long accountId;
+    AccountResponse account;
 }
