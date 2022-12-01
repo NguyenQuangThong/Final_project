@@ -10,5 +10,5 @@ public class FileResponse {
     String filePath;
     Timestamp timestamp;
     Long classroomId;
-    Long accountId;
+    AccountResponse account;
 }
