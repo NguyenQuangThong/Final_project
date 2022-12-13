@@ -43,6 +43,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //                .antMatchers("/accounts/**", "/classrooms/**").hasAuthority("Admin")
 //                .anyRequest().authenticated()
                 .anyRequest().permitAll()
+                .and().rememberMe().key("rememberMeKey").tokenValiditySeconds(86400)
                 .and().addFilterBefore(jwtTokenFilter, UsernamePasswordAuthenticationFilter.class);
     }
 

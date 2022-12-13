@@ -22,7 +22,10 @@ public interface IAccountService extends UserDetailsService {
 
     AccountResponse getAccountById(Long id);
 
-    boolean updateAccount(Long id, String fullName, MultipartFile avatar);
+    List<AccountResponse> getMemberNotInClass(Long id);
+
+    boolean updateAccount(Long id, String fullName, String email, MultipartFile avatar);
+
     boolean updateAccountPassword(Long id, PasswordRequest passwordRequest);
 
     boolean deleteAccount(Long id);

@@ -18,6 +18,12 @@ public class AccountController {
     @Autowired
     AccountService accountService;
 
+    @PostMapping("/forgot-password")
+    public ResponseEntity<Long> forgotPassword(@RequestParam String email) {
+        Long result = accountService.sendCodeToMail(email);
+        return result != null ? new ResponseEntity<>(result, HttpStatus.OK) : new ResponseEntity<>(result, HttpStatus.BAD_REQUEST);
+    }
+
     @GetMapping("")
     public ResponseEntity<List<AccountResponse>> getAllAccounts() {
         return new ResponseEntity<>(accountService.getAllAccounts(), HttpStatus.OK);
@@ -29,9 +35,15 @@ public class AccountController {
                 : new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
     }
 
+    @GetMapping("/members/{id}")
+    public ResponseEntity<List<AccountResponse>> getAccountNotInClass(@PathVariable Long id) {
+        return accountService.getMemberNotInClass(id) != null ? new ResponseEntity<>(accountService.getMemberNotInClass(id), HttpStatus.OK)
+                : new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+    }
+
     @PutMapping("/{id}")
-    public ResponseEntity<MessageResponse> updateAccount(@PathVariable Long id, @RequestParam String fullName, @RequestParam(required = false) MultipartFile avatar) {
-        if (accountService.updateAccount(id, fullName, avatar))
+    public ResponseEntity<MessageResponse> updateAccount(@PathVariable Long id, @RequestParam String fullName, @RequestParam String email, @RequestParam(required = false) MultipartFile avatar) {
+        if (accountService.updateAccount(id, fullName, email, avatar))
             return new ResponseEntity<>(new MessageResponse("Account updated successfully!", HttpStatus.OK.value()), HttpStatus.OK);
         return new ResponseEntity<>(new MessageResponse("Account update error!", HttpStatus.BAD_REQUEST.value()), HttpStatus.BAD_REQUEST);
     }

@@ -8,6 +8,7 @@ public class AccountResponse {
     String username;
     String fullName;
     String avatar;
+    String email;
     String role;
 //    List<ClassroomResponse> memberOf;
 }
