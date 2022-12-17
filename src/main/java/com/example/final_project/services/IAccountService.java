@@ -1,12 +1,13 @@
 package com.example.final_project.services;
 
-import com.example.final_project.dtos.requests.AccountUpdate;
 import com.example.final_project.dtos.requests.LoginRequest;
+import com.example.final_project.dtos.requests.PasswordRequest;
 import com.example.final_project.dtos.requests.RegisterRequest;
 import com.example.final_project.dtos.responses.AccountResponse;
 import com.example.final_project.dtos.responses.LoginResponse;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
@@ -21,7 +22,11 @@ public interface IAccountService extends UserDetailsService {
 
     AccountResponse getAccountById(Long id);
 
-    boolean updateAccount(Long id, AccountUpdate accountUpdate);
+    List<AccountResponse> getMemberNotInClass(Long id);
+
+    boolean updateAccount(Long id, String fullName, String email, MultipartFile avatar);
+
+    boolean updateAccountPassword(Long id, PasswordRequest passwordRequest);
 
     boolean deleteAccount(Long id);
 }

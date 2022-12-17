@@ -10,20 +10,22 @@ import java.util.List;
 public class Account {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    long accountId;
+    Long accountId;
     @Column(name = "username", nullable = false, columnDefinition = "varchar(50)")
     String username;
     @Column(name = "password", nullable = false, columnDefinition = "varchar(200)")
     String password;
     @Column(name = "full_name", columnDefinition = "varchar(50)")
     String fullName;
+    @Column(name = "avatar", columnDefinition = "varchar(200)")
+    String avatar;
+    @Column(name = "email", columnDefinition = "varchar(100)")
+    String email;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "role_id", nullable = false)
     Role role;
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "roomOwner", cascade = CascadeType.ALL)
     List<Classroom> ownerOf;
-    //    @OneToMany(fetch = FetchType.LAZY, mappedBy = "accountResponse", cascade = CascadeType.ALL)
-//    List<ClassroomMiddle> classroomMiddles;
     @ManyToMany(fetch = FetchType.LAZY, mappedBy = "roomMembers", cascade = CascadeType.ALL)
     List<Classroom> memberOf;
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "account", cascade = CascadeType.ALL)
@@ -34,4 +36,10 @@ public class Account {
     List<Message> messages;
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "account", cascade = CascadeType.ALL)
     List<File> files;
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "roomOwner", cascade = CascadeType.ALL)
+    List<Request> requests;
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "requester", cascade = CascadeType.ALL)
+    List<Request> requests1;
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "member", cascade = CascadeType.ALL)
+    List<Request> requests2;
 }

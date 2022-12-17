@@ -13,7 +13,9 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
 
 @Service
 public class ClassroomService implements IClassroomService {
@@ -31,7 +33,7 @@ public class ClassroomService implements IClassroomService {
         Classroom classroom = new Classroom();
         classroom.setClassName(classroomRequest.getClassName());
         classroom.setRoomOwner(accountRepository.findByUsername(auth.getName()));
-        classroom.setRoomMembers(Collections.singletonList(accountRepository.findByUsername(auth.getName())));
+//        classroom.setRoomMembers(Collections.singletonList(accountRepository.findByUsername(auth.getName())));
         classroomRepository.save(classroom);
         return true;
     }

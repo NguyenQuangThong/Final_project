@@ -14,15 +14,19 @@ public class Classroom {
     @Column(name = "class_name", nullable = false, columnDefinition = "varchar(50)")
     String className;
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "account_id", nullable = false)
+    @JoinColumn(name = "room_owner_id", nullable = false)
     Account roomOwner;
     //    @OneToMany(fetch = FetchType.LAZY, mappedBy = "classroom", cascade = CascadeType.ALL)
 //    List<ClassroomMiddle> classroomMiddles;
     @ManyToMany(fetch = FetchType.LAZY)
-    @JoinColumn(name = "account_id", nullable = false)
+    @JoinColumn(name = "room_member_id", nullable = false)
     List<Account> roomMembers;
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "classroom", cascade = CascadeType.ALL)
+    List<Post> posts;
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "classroom", cascade = CascadeType.ALL)
     List<Message> messages;
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "classroom", cascade = CascadeType.ALL)
     List<File> files;
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "classroom", cascade = CascadeType.ALL)
+    List<Request> requests;
 }
