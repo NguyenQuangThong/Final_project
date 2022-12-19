@@ -14,4 +14,6 @@ public interface AccountRepository extends JpaRepository<Account, Long> {
 
     Account findByEmail(String email);
 
+    List<Account> findAllByRole_RoleId(Long id);
+
 }

@@ -158,6 +158,19 @@ public class AccountService implements IAccountService {
     }
 
     @Override
+    public List<AccountResponse> getAllUserAccount() {
+        List<AccountResponse> result = new ArrayList<>();
+        try {
+            List<Account> accounts = accountRepository.findAllByRole_RoleId(1L);
+            for (Account account : accounts)
+                result.add(jwtTokenUtils.modelMapper().map(account, AccountResponse.class));
+            return result;
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    @Override
     public AccountResponse getAccountById(Long id) {
         try {
             return jwtTokenUtils.modelMapper().map(accountRepository.findById(id).get(), AccountResponse.class);

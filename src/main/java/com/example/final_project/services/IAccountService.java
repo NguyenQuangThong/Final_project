@@ -20,6 +20,8 @@ public interface IAccountService extends UserDetailsService {
 
     List<AccountResponse> getAllAccounts();
 
+    List<AccountResponse> getAllUserAccount();
+
     AccountResponse getAccountById(Long id);
 
     List<AccountResponse> getMemberNotInClass(Long id);
