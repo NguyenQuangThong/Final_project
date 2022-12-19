@@ -41,6 +41,11 @@ public class AccountController {
                 : new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
     }
 
+    @GetMapping("/users")
+    public ResponseEntity<List<AccountResponse>> getAllUser() {
+        return accountService.getAllUserAccount() != null ? new ResponseEntity<>(accountService.getAllUserAccount(), HttpStatus.OK) : new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+    }
+
     @PutMapping("/{id}")
     public ResponseEntity<MessageResponse> updateAccount(@PathVariable Long id, @RequestParam String fullName, @RequestParam String email, @RequestParam(required = false) MultipartFile avatar) {
         if (accountService.updateAccount(id, fullName, email, avatar))
