@@ -32,5 +32,5 @@ public interface IAccountService extends UserDetailsService {
 
     boolean resetPassword(Long id, String password);
 
-    boolean deleteAccount(Long id);
+    boolean deleteAccount(List<Long> ids);
 }

@@ -66,9 +66,9 @@ public class AccountController {
         return new ResponseEntity<>(false, HttpStatus.BAD_REQUEST);
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<MessageResponse> deleteAccount(@PathVariable Long id) {
-        if (accountService.deleteAccount(id))
+    @DeleteMapping("")
+    public ResponseEntity<MessageResponse> deleteAccount(@RequestParam List<Long> ids) {
+        if (accountService.deleteAccount(ids))
             return new ResponseEntity<>(new MessageResponse("Account deleted successfully!", HttpStatus.OK.value()), HttpStatus.OK);
         return new ResponseEntity<>(new MessageResponse("Account delete error!", HttpStatus.BAD_REQUEST.value()), HttpStatus.BAD_REQUEST);
     }
