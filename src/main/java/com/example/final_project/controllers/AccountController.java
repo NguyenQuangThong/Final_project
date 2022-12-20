@@ -1,5 +1,6 @@
 package com.example.final_project.controllers;
 
+import com.example.final_project.dtos.requests.AccountDelete;
 import com.example.final_project.dtos.requests.PasswordRequest;
 import com.example.final_project.dtos.responses.AccountResponse;
 import com.example.final_project.dtos.responses.MessageResponse;
@@ -67,8 +68,8 @@ public class AccountController {
     }
 
     @DeleteMapping("")
-    public ResponseEntity<MessageResponse> deleteAccount(@RequestParam List<Long> ids) {
-        if (accountService.deleteAccount(ids))
+    public ResponseEntity<MessageResponse> deleteAccount(@RequestBody AccountDelete accountDelete) {
+        if (accountService.deleteAccount(accountDelete))
             return new ResponseEntity<>(new MessageResponse("Account deleted successfully!", HttpStatus.OK.value()), HttpStatus.OK);
         return new ResponseEntity<>(new MessageResponse("Account delete error!", HttpStatus.BAD_REQUEST.value()), HttpStatus.BAD_REQUEST);
     }

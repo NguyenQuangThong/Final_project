@@ -1,5 +1,6 @@
 package com.example.final_project.services;
 
+import com.example.final_project.dtos.requests.AccountDelete;
 import com.example.final_project.dtos.requests.LoginRequest;
 import com.example.final_project.dtos.requests.PasswordRequest;
 import com.example.final_project.dtos.requests.RegisterRequest;
@@ -32,5 +33,5 @@ public interface IAccountService extends UserDetailsService {
 
     boolean resetPassword(Long id, String password);
 
-    boolean deleteAccount(List<Long> ids);
+    boolean deleteAccount(AccountDelete accountDelete);
 }
