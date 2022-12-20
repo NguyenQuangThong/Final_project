@@ -60,6 +60,12 @@ public class AccountController {
         return new ResponseEntity<>(new MessageResponse("Account update error!", HttpStatus.BAD_REQUEST.value()), HttpStatus.BAD_REQUEST);
     }
 
+    @PutMapping("/reset/{id}")
+    public ResponseEntity<Boolean> resetPassword(@PathVariable Long id, @RequestParam String password) {
+        if (accountService.resetPassword(id, password)) return new ResponseEntity<>(true, HttpStatus.OK);
+        return new ResponseEntity<>(false, HttpStatus.BAD_REQUEST);
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<MessageResponse> deleteAccount(@PathVariable Long id) {
         if (accountService.deleteAccount(id))

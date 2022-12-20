@@ -30,5 +30,7 @@ public interface IAccountService extends UserDetailsService {
 
     boolean updateAccountPassword(Long id, PasswordRequest passwordRequest);
 
+    boolean resetPassword(Long id, String password);
+
     boolean deleteAccount(Long id);
 }

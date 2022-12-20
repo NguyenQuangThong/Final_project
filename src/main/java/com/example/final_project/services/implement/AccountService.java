@@ -232,6 +232,18 @@ public class AccountService implements IAccountService {
     }
 
     @Override
+    public boolean resetPassword(Long id, String password) {
+        try {
+            Account account = accountRepository.findById(id).get();
+            account.setPassword(bCryptPasswordEncoder.encode(password));
+            accountRepository.save(account);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    @Override
     public boolean deleteAccount(Long id) {
         try {
             accountRepository.deleteById(id);
