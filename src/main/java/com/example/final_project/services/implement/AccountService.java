@@ -1,6 +1,7 @@
 package com.example.final_project.services.implement;
 
 import com.example.final_project.configures.JwtTokenUtils;
+import com.example.final_project.dtos.requests.AccountDelete;
 import com.example.final_project.dtos.requests.LoginRequest;
 import com.example.final_project.dtos.requests.PasswordRequest;
 import com.example.final_project.dtos.requests.RegisterRequest;
@@ -244,9 +245,9 @@ public class AccountService implements IAccountService {
     }
 
     @Override
-    public boolean deleteAccount(List<Long> ids) {
+    public boolean deleteAccount(AccountDelete accountDelete) {
         try {
-            for (Long id : ids)
+            for (Long id : accountDelete.getIds())
                 accountRepository.deleteById(id);
             return true;
         } catch (Exception e) {
