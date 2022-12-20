@@ -244,9 +244,10 @@ public class AccountService implements IAccountService {
     }
 
     @Override
-    public boolean deleteAccount(Long id) {
+    public boolean deleteAccount(List<Long> ids) {
         try {
-            accountRepository.deleteById(id);
+            for (Long id : ids)
+                accountRepository.deleteById(id);
             return true;
         } catch (Exception e) {
             return false;
