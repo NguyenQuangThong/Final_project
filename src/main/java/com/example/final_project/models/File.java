@@ -15,6 +15,8 @@ public class File {
     String filePath;
     @Column(name = "uploaded_at", nullable = false, columnDefinition = "timestamp")
     Timestamp timestamp;
+    @Column(name = "size", nullable = false)
+    Double size;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "classroom_id", nullable = false)
     Classroom classroom;
