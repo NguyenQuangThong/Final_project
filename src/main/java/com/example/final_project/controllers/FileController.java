@@ -22,7 +22,7 @@ public class FileController {
     @ResponseStatus(HttpStatus.CREATED)
     public void uploadFile(@RequestParam Long accountId,
                            @RequestParam Long classroomId,
-                           @RequestParam List<MultipartFile> files) throws IOException {
+                           @RequestParam MultipartFile[] files) throws IOException {
         fileService.uploadFile(accountId, classroomId, files);
     }
 
