@@ -22,8 +22,8 @@ public class FileController {
     @ResponseStatus(HttpStatus.CREATED)
     public void uploadFile(@RequestParam Long accountId,
                            @RequestParam Long classroomId,
-                           @RequestParam MultipartFile file) throws IOException {
-        fileService.uploadFile(accountId, classroomId, file);
+                           @RequestParam List<MultipartFile> files) throws IOException {
+        fileService.uploadFile(accountId, classroomId, files);
     }
 
     @GetMapping("")

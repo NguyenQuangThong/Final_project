@@ -10,6 +10,6 @@ public class FileResponse {
     String filePath;
     Timestamp timestamp;
     Double size;
-    Long classroomId;
+    ClassroomResponse classroom;
     AccountResponse account;
 }
