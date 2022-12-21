@@ -67,6 +67,15 @@ public class FileService implements IFileService {
     }
 
     @Override
+    public List<FileResponse> getFileByClassroomId(Long id) {
+        List<File> files = fileRepository.getFilesByClassroom_ClassroomId(id);
+        List<FileResponse> result = new ArrayList<>();
+        for(File file : files)
+            result.add(jwtTokenUtils.modelMapper().map(file, FileResponse.class));
+        return result;
+    }
+
+    @Override
     public void deleteFile(Long id) {
         String fileName = fileRepository.findById(id).get().getFilePath();
         fileRepository.deleteById(id);

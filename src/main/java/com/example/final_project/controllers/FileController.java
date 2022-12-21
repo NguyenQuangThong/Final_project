@@ -31,6 +31,11 @@ public class FileController {
         return new ResponseEntity<>(fileService.getAllFiles(), HttpStatus.OK);
     }
 
+    @GetMapping("/classrooms/{id}")
+    public ResponseEntity<List<FileResponse>> getFileByClassroomId(@PathVariable Long id) {
+        return new ResponseEntity<>(fileService.getFileByClassroomId(id), HttpStatus.OK);
+    }
+
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<MessageResponse> deleteFile(@PathVariable Long id) {
         fileService.deleteFile(id);
