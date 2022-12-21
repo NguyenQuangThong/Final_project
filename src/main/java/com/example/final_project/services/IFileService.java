@@ -11,5 +11,7 @@ public interface IFileService {
 
     List<FileResponse> getAllFiles();
 
+    List<FileResponse> getFileByClassroomId(Long id);
+
     void deleteFile(Long id);
 }
