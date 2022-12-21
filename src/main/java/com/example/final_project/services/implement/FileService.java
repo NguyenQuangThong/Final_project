@@ -36,7 +36,7 @@ public class FileService implements IFileService {
     @Override
     public void uploadFile(Long accountId,
                            Long classroomId,
-                           List<MultipartFile> files) throws IOException {
+                           MultipartFile[] files) throws IOException {
         Path staticPath = Paths.get("static");
         Path filePath = Paths.get("files");
         if (!Files.exists(CURRENT_FOLDER.resolve(staticPath).resolve(filePath))) {
