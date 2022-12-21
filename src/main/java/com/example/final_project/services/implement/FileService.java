@@ -36,25 +36,27 @@ public class FileService implements IFileService {
     @Override
     public void uploadFile(Long accountId,
                            Long classroomId,
-                           MultipartFile file) throws IOException {
+                           List<MultipartFile> files) throws IOException {
         Path staticPath = Paths.get("static");
         Path filePath = Paths.get("files");
         if (!Files.exists(CURRENT_FOLDER.resolve(staticPath).resolve(filePath))) {
             Files.createDirectories(CURRENT_FOLDER.resolve(staticPath).resolve(filePath));
         }
-        Path path = CURRENT_FOLDER.resolve(staticPath)
-                .resolve(filePath).resolve(file.getOriginalFilename());
-        try (OutputStream os = Files.newOutputStream(path)) {
-            os.write(file.getBytes());
+        for (MultipartFile file : files) {
+            Path path = CURRENT_FOLDER.resolve(staticPath)
+                    .resolve(filePath).resolve(file.getOriginalFilename());
+            try (OutputStream os = Files.newOutputStream(path)) {
+                os.write(file.getBytes());
+            }
+            File uploadedFile = new File();
+            uploadedFile.setFilePath("static/" + filePath.resolve(file.getOriginalFilename()));
+            uploadedFile.setTimestamp(new Timestamp(new Date().getTime()));
+            uploadedFile.setClassroom(classroomRepository.findById(classroomId).get());
+            uploadedFile.setAccount(accountRepository.findById(accountId).get());
+            java.io.File a = new java.io.File(uploadedFile.getFilePath());
+            uploadedFile.setSize(Math.round(((float) a.length() / (1024 * 1024)) * 100.0) / 100.0);
+            fileRepository.save(uploadedFile);
         }
-        File uploadedFile = new File();
-        uploadedFile.setFilePath("static/" + filePath.resolve(file.getOriginalFilename()));
-        uploadedFile.setTimestamp(new Timestamp(new Date().getTime()));
-        uploadedFile.setClassroom(classroomRepository.findById(classroomId).get());
-        uploadedFile.setAccount(accountRepository.findById(accountId).get());
-        java.io.File a = new java.io.File(uploadedFile.getFilePath());
-        uploadedFile.setSize(Math.round(((float) a.length()/(1024*1024))*100.0)/100.0);
-        fileRepository.save(uploadedFile);
     }
 
     @Override
@@ -70,7 +72,7 @@ public class FileService implements IFileService {
     public List<FileResponse> getFileByClassroomId(Long id) {
         List<File> files = fileRepository.getFilesByClassroom_ClassroomId(id);
         List<FileResponse> result = new ArrayList<>();
-        for(File file : files)
+        for (File file : files)
             result.add(jwtTokenUtils.modelMapper().map(file, FileResponse.class));
         return result;
     }

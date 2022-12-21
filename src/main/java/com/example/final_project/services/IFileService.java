@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.util.List;
 
 public interface IFileService {
-    void uploadFile(Long accountId, Long classroomId, MultipartFile file) throws IOException;
+    void uploadFile(Long accountId, Long classroomId, List<MultipartFile> files) throws IOException;
 
     List<FileResponse> getAllFiles();
 
