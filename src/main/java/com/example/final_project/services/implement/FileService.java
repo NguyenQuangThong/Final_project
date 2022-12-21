@@ -52,6 +52,8 @@ public class FileService implements IFileService {
         uploadedFile.setTimestamp(new Timestamp(new Date().getTime()));
         uploadedFile.setClassroom(classroomRepository.findById(classroomId).get());
         uploadedFile.setAccount(accountRepository.findById(accountId).get());
+        java.io.File a = new java.io.File(uploadedFile.getFilePath());
+        uploadedFile.setSize(Math.round(((float) a.length()/(1024*1024))*100.0)/100.0);
         fileRepository.save(uploadedFile);
     }
 

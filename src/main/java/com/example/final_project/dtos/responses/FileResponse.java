@@ -9,6 +9,7 @@ public class FileResponse {
     Long fileId;
     String filePath;
     Timestamp timestamp;
+    Double size;
     Long classroomId;
     AccountResponse account;
 }
