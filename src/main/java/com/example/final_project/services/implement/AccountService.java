@@ -29,6 +29,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.nio.file.Files;
@@ -90,7 +91,7 @@ public class AccountService implements IAccountService {
             return null;
     }
 
-    public String avatarHandler(MultipartFile file, String oldAvatar, Long id) throws IOException {
+    public String avatarHandler(MultipartFile file, String oldAvatar) throws IOException {
         Path CURRENT_FOLDER = Paths.get(System.getProperty("user.dir"));
         Path staticPath = Paths.get("static");
         Path filePath = Paths.get("avatars");
@@ -104,12 +105,12 @@ public class AccountService implements IAccountService {
             extension = fileName.substring(index + 1);
         }
         System.out.println(oldAvatar);
-//        if (!oldAvatar.equals("static/avatars/default_avatar.png")) {
-//            File f = new File(oldAvatar);
-//            f.delete();
-//        }
-        System.out.println(!oldAvatar.equals("static/avatars/default_avatar.png"));
-        String renameFile = id.toString() + "." + extension;
+        if (!oldAvatar.equals("avatars/default_avatar.png")) {
+            File f = new File("static/" + oldAvatar);
+            f.delete();
+        }
+        System.out.println(!oldAvatar.equals("avatars/default_avatar.png"));
+        String renameFile = getAlphaNumericString(3) + "." + extension;
         Path path = CURRENT_FOLDER.resolve(staticPath)
                 .resolve(filePath).resolve(renameFile);
         try (OutputStream os = Files.newOutputStream(path)) {
@@ -202,18 +203,29 @@ public class AccountService implements IAccountService {
     }
 
     @Override
-    public boolean updateAccount(Long id, String fullName, String email, MultipartFile avatar) {
+    public boolean updateAccount(Long id, String fullName, String email) {
         try {
             Account account = accountRepository.findById(id).get();
             account.setFullName(fullName);
             account.setEmail(email);
-            String oldAvatar = account.getAvatar();
-            if (avatar != null)
-                account.setAvatar(avatarHandler(avatar, oldAvatar, account.getAccountId()));
             accountRepository.save(account);
             return true;
         } catch (Exception e) {
             return false;
+        }
+    }
+
+    @Override
+    public String updateAvatar(Long id, MultipartFile avatar) {
+        try {
+            Account account = accountRepository.findById(id).get();
+            String oldAvatar = account.getAvatar();
+            if (avatar != null)
+                account.setAvatar(avatarHandler(avatar, oldAvatar));
+            accountRepository.save(account);
+            return account.getAvatar();
+        } catch (Exception e) {
+            return null;
         }
     }
 

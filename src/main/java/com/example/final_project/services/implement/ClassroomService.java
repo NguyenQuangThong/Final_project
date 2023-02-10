@@ -26,6 +26,8 @@ public class ClassroomService implements IClassroomService {
     @Autowired
     AccountRepository accountRepository;
 
+    @Autowired
+    AccountService accountService;
 
     @Override
     public Boolean createClassroom(ClassroomRequest classroomRequest) {
@@ -33,6 +35,7 @@ public class ClassroomService implements IClassroomService {
         Classroom classroom = new Classroom();
         classroom.setClassName(classroomRequest.getClassName());
         classroom.setRoomOwner(accountRepository.findByUsername(auth.getName()));
+        classroom.setClassCode(accountService.getAlphaNumericString(6));
 //        classroom.setRoomMembers(Collections.singletonList(accountRepository.findByUsername(auth.getName())));
         classroomRepository.save(classroom);
         return true;
@@ -96,5 +99,18 @@ public class ClassroomService implements IClassroomService {
         Classroom classroom = classroomRepository.findById(classroomId).get();
         for (Long aLong : accountId) classroom.getRoomMembers().remove(accountRepository.findById(aLong).get());
         classroomRepository.save(classroom);
+    }
+
+    @Override
+    public Boolean joinClassroom(String code, Long accountId) {
+        Classroom find = classroomRepository.findClassroomByClassCode(code);
+        if (find != null) {
+            Classroom classroom = classroomRepository.findById(find.getClassroomId()).get();
+            if(classroom.getRoomOwner().getAccountId().equals(accountId))
+                return false;
+            classroom.getRoomMembers().add(accountRepository.findById(accountId).get());
+            classroomRepository.save(classroom);
+            return true;
+        } else return false;
     }
 }

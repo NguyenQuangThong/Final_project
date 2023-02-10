@@ -19,4 +19,6 @@ public interface IClassroomService {
     void addClassroomMember(Long classroomId, List<Long> accountId);
 
     void removeClassroomMember(Long classroomId, List<Long> accountId);
+
+    Boolean joinClassroom(String code, Long accountId);
 }

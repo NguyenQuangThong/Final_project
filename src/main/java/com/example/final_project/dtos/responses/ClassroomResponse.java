@@ -8,6 +8,7 @@ import java.util.List;
 public class ClassroomResponse {
     Long classroomId;
     String className;
+    String classCode;
     AccountResponse roomOwner;
     List<AccountResponse> roomMembers;
 }
