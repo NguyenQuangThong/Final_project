@@ -48,10 +48,18 @@ public class AccountController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<MessageResponse> updateAccount(@PathVariable Long id, @RequestParam String fullName, @RequestParam String email, @RequestParam(required = false) MultipartFile avatar) {
-        if (accountService.updateAccount(id, fullName, email, avatar))
+    public ResponseEntity<MessageResponse> updateAccount(@PathVariable Long id, @RequestParam String fullName, @RequestParam String email) {
+        if (accountService.updateAccount(id, fullName, email))
             return new ResponseEntity<>(new MessageResponse("Account updated successfully!", HttpStatus.OK.value()), HttpStatus.OK);
         return new ResponseEntity<>(new MessageResponse("Account update error!", HttpStatus.BAD_REQUEST.value()), HttpStatus.BAD_REQUEST);
+    }
+
+    @PutMapping("/avatar/{id}")
+    public ResponseEntity<String> updateAvatar(@PathVariable Long id, @RequestParam(required = false) MultipartFile avatar) {
+        String result = accountService.updateAvatar(id, avatar);
+        if (result != null)
+            return new ResponseEntity<>(result, HttpStatus.OK);
+        return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
     }
 
     @PutMapping("/password/{id}")

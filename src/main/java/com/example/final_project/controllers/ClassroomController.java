@@ -54,6 +54,13 @@ public class ClassroomController {
         return new ResponseEntity<>(new MessageResponse("ok", HttpStatus.OK.value()), HttpStatus.OK);
     }
 
+    @PostMapping("/join/{id}")
+    public ResponseEntity<MessageResponse> joinClassroom(@PathVariable Long id, @RequestParam String code) {
+        if (classroomService.joinClassroom(code, id))
+            return new ResponseEntity<>(new MessageResponse("Join class successfully!", HttpStatus.OK.value()), HttpStatus.OK);
+        return new ResponseEntity<>(new MessageResponse("Invalid code!", HttpStatus.BAD_REQUEST.value()), HttpStatus.BAD_REQUEST);
+    }
+
     @DeleteMapping("/remove/{id}")
     public ResponseEntity<MessageResponse> removeClassroomMember(@PathVariable Long id, @RequestBody ClassMemberRequest classMemberRequest) {
         classroomService.removeClassroomMember(id, classMemberRequest.getAccountId());

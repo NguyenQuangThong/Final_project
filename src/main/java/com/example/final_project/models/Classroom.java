@@ -11,8 +11,13 @@ public class Classroom {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long classroomId;
+
     @Column(name = "class_name", nullable = false, columnDefinition = "varchar(50)")
     String className;
+
+    @Column(name = "class_code", nullable = false, columnDefinition = "varchar(50)")
+    String classCode;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "room_owner_id", nullable = false)
     Account roomOwner;

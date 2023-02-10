@@ -25,5 +25,6 @@ public class Post {
     Classroom classroom;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "post", cascade = CascadeType.ALL)
+    @OrderBy(value = "childPostId asc")
     List<ChildPost> childPosts;
 }

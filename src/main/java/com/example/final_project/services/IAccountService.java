@@ -27,7 +27,9 @@ public interface IAccountService extends UserDetailsService {
 
     List<AccountResponse> getMemberNotInClass(Long id);
 
-    boolean updateAccount(Long id, String fullName, String email, MultipartFile avatar);
+    boolean updateAccount(Long id, String fullName, String email);
+
+    String updateAvatar(Long id, MultipartFile avatar);
 
     boolean updateAccountPassword(Long id, PasswordRequest passwordRequest);
 

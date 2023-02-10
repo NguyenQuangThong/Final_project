@@ -9,6 +9,7 @@ import com.example.final_project.repositories.ClassroomRepository;
 import com.example.final_project.repositories.PostRepository;
 import com.example.final_project.services.IPostService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
@@ -29,7 +30,7 @@ public class PostService implements IPostService {
 
     @Override
     public List<PostResponse> getAllPosts() {
-        List<Post> posts = postRepository.findAll();
+        List<Post> posts = postRepository.findAll(Sort.by(Sort.Direction.ASC, "postId"));
         List<PostResponse> result = new ArrayList<>();
         for (Post post : posts)
             result.add(jwtTokenUtils.modelMapper().map(post, PostResponse.class));
@@ -53,7 +54,7 @@ public class PostService implements IPostService {
 
     @Override
     public List<PostResponse> getPostByClassroomId(Long id) {
-        List<Post> posts = postRepository.findByClassroom_ClassroomId(id);
+        List<Post> posts = postRepository.findByClassroom_ClassroomId(id, Sort.by(Sort.Direction.ASC, "postId"));
         List<PostResponse> result = new ArrayList<>();
         for (Post post : posts)
             result.add(jwtTokenUtils.modelMapper().map(post, PostResponse.class));
